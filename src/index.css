@@ -4,22 +4,18 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 
   /* Nueva paleta */
-  --color-primary-dark: #522566;
+   --color-dark: #522566;
   --color-primary: #7A3A8E;
   --color-accent: #AD74C3;
   --color-soft: #EADFF0;
   --color-light: #F8EDFB;
+  --color-text-dark: #2B1A33;
 }
 
 @layer base {
   body {
-    @apply font-sans antialiased;
-    background: linear-gradient(
-      135deg,
-      var(--color-primary-dark),
-      var(--color-primary)
-    );
-    color: var(--color-light);
+    background-color: #522566;
+    color: #F8EDFB;
   }
 }
 

@@ -14,7 +14,7 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
 
   return (
-    <div className="relative selection:bg-accent-purple selection:text-white">
+    <div className="relative selection:bg-purple-500 selection:text-white">
       <Navbar onSearch={setSearchQuery} />
       <main>
         <Hero />
@@ -25,8 +25,8 @@ export default function App() {
       
       {/* Global Background Elements */}
       <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent-purple/10 blur-[120px] rounded-full" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-accent-purple/5 blur-[120px] rounded-full" />
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-purple-500/10 blur-[120px] rounded-full" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-500/5 blur-[120px] rounded-full" />
       </div>
     </div>
   );

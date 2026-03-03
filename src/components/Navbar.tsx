@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Search, Menu, X, ChevronDown } from 'lucide-react';
+interface NavbarProps {
+  onSearch: (value: string) => void;
+}
 
-export const Navbar = () => {
+export const Navbar = ({ onSearch }: NavbarProps) => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const handleSearch = (term) => {
-    const element = document.getElementById(term.toLowerCase());
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsSearchOpen(false);
-    }
-  };
+ const handleSearch = (term: string) => {
+  onSearch(term); // 🔥 conecta con App
+  const element = document.getElementById(term.toLowerCase());
+  if (element) {
+    element.scrollIntoView({ behavior: 'smooth' });
+    setIsSearchOpen(false);
+  }
+};
 
   return (
     <>
