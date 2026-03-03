@@ -2,36 +2,69 @@
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --color-bg-dark: #0a051a;
-  --color-accent-purple: #a78bfa;
-  --color-accent-glow: rgba(76, 60, 97, 0.4);
-  --color-brand-deep: #301D48;
-  --color-brand-light: #4C3C61;
+
+  /* Nueva paleta */
+  --color-primary-dark: #522566;
+  --color-primary: #7A3A8E;
+  --color-accent: #AD74C3;
+  --color-soft: #EADFF0;
+  --color-light: #F8EDFB;
 }
 
 @layer base {
   body {
-    @apply bg-bg-dark text-white font-sans antialiased;
-    background-image: 
-      radial-gradient(circle at 20% 20%, var(--color-brand-light), transparent 50%),
-      radial-gradient(circle at 80% 80%, var(--color-brand-deep), transparent 50%),
-      radial-gradient(circle at 50% 50%, #0a051a, transparent 100%);
-    background-attachment: fixed;
+    @apply font-sans antialiased;
+    background: linear-gradient(
+      135deg,
+      var(--color-primary-dark),
+      var(--color-primary)
+    );
+    color: var(--color-light);
   }
 }
 
+/* Navbar glass */
 .glass-nav {
-  @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-full px-6 py-2;
+  background: rgba(248, 237, 251, 0.08);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(248, 237, 251, 0.15);
+  border-radius: 9999px;
+  padding: 8px 24px;
 }
 
+/* Efecto glow hero */
 .hero-glow {
-  background: radial-gradient(circle at center, var(--color-accent-glow) 0%, transparent 70%);
+  background: radial-gradient(
+    circle at center,
+    rgba(173, 116, 195, 0.4) 0%,
+    transparent 70%
+  );
 }
 
+/* Botón principal */
 .btn-primary {
-  @apply bg-white text-bg-dark font-semibold px-6 py-2 rounded-lg transition-all hover:bg-white/90 active:scale-95;
+  background-color: var(--color-light);
+  color: var(--color-primary-dark);
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
 }
 
+.btn-primary:hover {
+  background-color: var(--color-soft);
+  transform: scale(1.05);
+}
+
+/* Botón outline */
 .btn-outline {
-  @apply border border-white/20 px-6 py-2 rounded-lg transition-all hover:bg-white/5 active:scale-95;
+  border: 1px solid var(--color-light);
+  color: var(--color-light);
+  padding: 10px 24px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.btn-outline:hover {
+  background-color: rgba(248, 237, 251, 0.1);
 }
