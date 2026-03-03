@@ -6,7 +6,7 @@ import cv from "../assets/CV.pdf";
 
 export const Hero = () => {
   return (
-    <section id="inicio" className="relative w-full min-h-screen flex flex-col justify-between overflow-hidden bg-[#2A1B3D]"> {/* Asumiendo un fondo base oscuro */}
+    <section id="inicio" className="relative w-full min-h-screen flex flex-col justify-between overflow-hidden">
       
       {/* Background blobs mejorados */}
       <div className="absolute inset-0 pointer-events-none">
@@ -15,7 +15,7 @@ export const Hero = () => {
       </div>
 
       {/* Contenido Central */}
-      <div className="flex-grow flex items-center justify-center px-6 lg:px-16 py-12 relative z-10">
+      <div className="flex-grow flex items-center justify-center px-6 lg:px-16 pt-32 pb-16 relative z-10">
         <div className="w-full max-w-[1280px] grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           
           {/* TEXTO */}
@@ -27,22 +27,19 @@ export const Hero = () => {
           >
             <div className="w-14 h-[3px] bg-gradient-to-r from-[#AD74C3] to-[#7A3A8E] mx-auto lg:mx-0 rounded-full"></div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.1] tracking-tight text-white">
-              Diseñadora UX/UI <br className="hidden lg:block"/> enfocada en crear 
-              <br />
-              {/* MEJORA VISUAL: Texto con gradiente */}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AD74C3] via-[#D8B4E2] to-[#AD74C3] bg-[length:200%_auto] animate-gradient">
-                 experiencias digitales 
-              </span>
-              <br />
-              intuitivas
-            </h1>
+<h1 className="text-4xl sm:text-5xl md:text-6xl font-bold leading-[1.1] tracking-tight text-white">
+  Hola, soy Arianna —
+  <br />
+  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AD74C3] via-[#D8B4E2] to-[#AD74C3] bg-[length:200%_auto] animate-gradient">
+    Diseñadora UX/UI
+  </span>
+</h1>
 
-            <p className="text-[#EADFF0]/80 text-base md:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed font-light">
-              Transformo ideas complejas en interfaces simples, funcionales 
-              y visualmente atractivas. Mi enfoque combina investigación, 
-              estrategia y diseño centrado en el usuario.
-            </p>
+<p className="text-[#EADFF0]/80 text-base md:text-lg max-w-xl mx-auto lg:mx-0 leading-relaxed font-light">
+  Egresada de Ingeniería de Sistemas con pasión por el diseño. 
+  Entiendo tanto al usuario como al desarrollador, y diseño 
+  en ese punto medio donde todo encaja.
+</p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start pt-4">
               <motion.a 
@@ -73,7 +70,7 @@ export const Hero = () => {
   transition={{ duration: 0.8 }}
   className="flex justify-center lg:justify-end order-2 relative"
 >
-  <div className="relative w-full max-w-[320px] lg:max-w-[450px] flex justify-center items-center">
+  <div className="relative w-full max-w-[340px] lg:max-w-[480px] flex justify-center items-center">
     
     {/* 1. El Aura de luz detrás (Sin bordes, pura luz) */}
     <div className="absolute w-[80%] h-[80%] bg-[#AD74C3] rounded-full blur-[80px] opacity-40 animate-pulse"></div>

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Search, Menu, X, ChevronDown } from 'lucide-react';
+import { Search, Menu, X } from 'lucide-react';
 interface NavbarProps {
   onSearch: (value: string) => void;
 }
@@ -18,7 +18,15 @@ export const Navbar = ({ onSearch }: NavbarProps) => {
     setIsSearchOpen(false);
   }
 };
-
+useEffect(() => {
+  const handleEsc = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') setIsSearchOpen(false);
+  };
+  if (isSearchOpen) {
+    document.addEventListener('keydown', handleEsc);
+  }
+  return () => document.removeEventListener('keydown', handleEsc);
+}, [isSearchOpen]);
   return (
     <>
       <motion.nav 
@@ -26,10 +34,11 @@ export const Navbar = ({ onSearch }: NavbarProps) => {
         animate={{ y: 0, opacity: 1 }}
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-6 max-w-7xl mx-auto w-full"
       >
-        {/* Logo */}
-        <div className="flex items-center justify-center w-10 h-10 bg-white/10 rounded-xl border border-white/20 backdrop-blur-sm">
-          <span className="text-xl font-bold italic">A</span>
-        </div>
+        <a href="#inicio" className="text-xl font-black tracking-tight">
+  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AD74C3] via-[#D8B4E2] to-[#AD74C3]">
+    Arianna
+  </span>
+</a>
 
         {/* Center Links */}
         <div className="hidden md:flex items-center gap-6 glass-nav">
@@ -63,7 +72,7 @@ export const Navbar = ({ onSearch }: NavbarProps) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] bg-bg-dark/95 backdrop-blur-lg flex items-center justify-center p-6"
+            className="fixed inset-0 z-[100] bg-[var(--color-bg-main)]/95 backdrop-blur-lg flex items-center justify-center p-6"
           >
             <button 
               onClick={() => setIsSearchOpen(false)}
@@ -108,12 +117,14 @@ export const Navbar = ({ onSearch }: NavbarProps) => {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 bottom-0 z-[100] w-80 bg-bg-dark border-l border-white/10 p-8 md:hidden"
+              className="fixed top-0 right-0 bottom-0 z-[100] w-80 bg-[var(--color-bg-main)] border-l border-white/10 p-8 md:hidden"
             >
               <div className="flex items-center justify-between mb-12">
-                <div className="w-10 h-10 bg-white/10 rounded-xl border border-white/20 flex items-center justify-center">
-                  <span className="text-xl font-bold italic">A</span>
-                </div>
+              <a href="#inicio" className="text-xl font-black tracking-tight">
+  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AD74C3] via-[#D8B4E2] to-[#AD74C3]">
+    Arianna
+  </span>
+</a>
                 <button onClick={() => setIsMenuOpen(false)} className="text-white/60 hover:text-white">
                   <X size={24} />
                 </button>

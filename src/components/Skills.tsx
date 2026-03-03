@@ -22,22 +22,19 @@ const skillGroups = [
   {
     title: "Análisis de Datos & BI",
     groupIcon: <Database size={20} />,
-    color: "from-yellow-400/20 to-orange-500/20",
-    glow: "group-hover:shadow-yellow-500/20",
+    color: "from-[#AD74C3]/20 to-[#7A3A8E]/20",        // lila brillante
+    glow: "group-hover:shadow-[#AD74C3]/20",
     skills: [
-      // REEMPLAZO 1: Power BI -> BarChart3 (Lucide) amarillo
       { name: "Power BI", icon: <BarChart3 color="#F2C811" size={28} /> },
-      // REEMPLAZO 2: SQL Server -> Database (Lucide) rojo
-      { name: "SQL Server", icon: <Database color="#CC2927" size={28} /> }, 
-      // REEMPLAZO 3: Office -> FaWindows (FontAwesome) azul
+      { name: "SQL Server", icon: <Database color="#CC2927" size={28} /> },
       { name: "Microsoft Office", icon: <FaWindows color="#00A4EF" size={28} /> }
     ]
   },
   {
     title: "Desarrollo & Código",
     groupIcon: <Code2 size={20} />,
-    color: "from-blue-400/20 to-cyan-500/20",
-    glow: "group-hover:shadow-blue-500/20",
+    color: "from-[#7A3A8E]/20 to-[#4A1A6E]/20",        // morado medio/oscuro
+    glow: "group-hover:shadow-[#7A3A8E]/20",
     skills: [
       { name: "Python", icon: <SiPython color="#3776AB" size={26} /> },
       { name: "Java", icon: <FaJava color="#007396" size={26} /> },
@@ -49,12 +46,12 @@ const skillGroups = [
   {
     title: "Diseño & Modelado",
     groupIcon: <Palette size={20} />,
-    color: "from-purple-400/20 to-pink-500/20",
-    glow: "group-hover:shadow-pink-500/20",
+    color: "from-[#D8B4E2]/20 to-[#AD74C3]/20",        // rosa lila suave
+    glow: "group-hover:shadow-[#D8B4E2]/20",
     skills: [
       { name: "Figma", icon: <SiFigma color="#F24E1E" size={26} /> },
       { name: "Adobe XD", icon: <SiAdobexd color="#FF61F6" size={26} /> },
-      { name: "Bizagi", icon: <FaProjectDiagram color="#7AB800" size={26} /> }, 
+      { name: "Bizagi", icon: <FaProjectDiagram color="#7AB800" size={26} /> },
       { name: "Ent. Architect", icon: <TbBinaryTree color="#005A9C" size={26} /> }
     ]
   }

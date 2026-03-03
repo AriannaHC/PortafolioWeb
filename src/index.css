@@ -3,24 +3,17 @@
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 
-  /* 🎨 PALETA CORREGIDA */
-  
-  /* Fondo Principal: Un morado casi negro (Deep Violet). 
-     Esto hace que los colores neón resalten mucho más. */
-  --color-bg-main: #13081C; 
-  
-  /* Fondo Secundario: Para tarjetas o secciones alternas */
+  /* 🎨 PALETA */
+  --color-bg-main: #13081C;
   --color-bg-card: #1A1025;
-
-  /* Acento Principal: El lila brillante (Tu color de marca) */
-  --color-accent: #AD74C3; 
-  
-  /* Acento Secundario: Morado medio para profundidades */
+  --color-accent: #AD74C3;
   --color-primary: #7A3A8E;
-  
-  /* Textos */
-  --color-text-light: #F8EDFB;  /* Blanco lila para títulos */
-  --color-text-muted: #EADFF0;  /* Lila grisáceo para párrafos */
+  --color-text-light: #F8EDFB;
+  --color-text-muted: #EADFF0;
+
+  /* ✅ ALIAS NUEVOS — Habilitan las clases de Tailwind */
+  --color-accent-purple: #AD74C3;  /* → text-accent-purple, bg-accent-purple, border-accent-purple */
+  --color-bg-dark: #13081C;        /* → bg-bg-dark */
 }
 
 @layer base {
@@ -100,4 +93,15 @@
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+/* ✅ AGREGAR AL FINAL — Animación del texto gradiente en Hero */
+@keyframes gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient {
+  animation: gradient-shift 4s ease infinite;
 }
