@@ -3,64 +3,101 @@
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 
-  /* Nueva paleta */
-   --color-dark: #522566;
+  /* 🎨 PALETA CORREGIDA */
+  
+  /* Fondo Principal: Un morado casi negro (Deep Violet). 
+     Esto hace que los colores neón resalten mucho más. */
+  --color-bg-main: #13081C; 
+  
+  /* Fondo Secundario: Para tarjetas o secciones alternas */
+  --color-bg-card: #1A1025;
+
+  /* Acento Principal: El lila brillante (Tu color de marca) */
+  --color-accent: #AD74C3; 
+  
+  /* Acento Secundario: Morado medio para profundidades */
   --color-primary: #7A3A8E;
-  --color-accent: #AD74C3;
-  --color-soft: #EADFF0;
-  --color-light: #F8EDFB;
-  --color-text-dark: #2B1A33;
+  
+  /* Textos */
+  --color-text-light: #F8EDFB;  /* Blanco lila para títulos */
+  --color-text-muted: #EADFF0;  /* Lila grisáceo para párrafos */
 }
 
 @layer base {
   body {
-    background-color: #522566;
-    color: #F8EDFB;
+    /* Usamos el fondo oscuro profundo */
+    background-color: var(--color-bg-main);
+    color: var(--color-text-light);
+    
+    /* Opcional: Un gradiente sutil para que no sea negro plano */
+    background-image: radial-gradient(
+      circle at top center, 
+      #2E163D 0%, 
+      #13081C 60%
+    );
+    background-attachment: fixed; /* El fondo se queda quieto al hacer scroll */
+    min-height: 100vh;
   }
 }
 
-/* Navbar glass */
+/* Navbar glass (Mejorado) */
 .glass-nav {
-  background: rgba(248, 237, 251, 0.08);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(248, 237, 251, 0.15);
+  background: rgba(19, 8, 28, 0.6); /* Base oscura transparente */
+  backdrop-filter: blur(16px);       /* Más borroso para efecto premium */
+  border: 1px solid rgba(173, 116, 195, 0.1); /* Borde sutil color acento */
   border-radius: 9999px;
-  padding: 8px 24px;
+  padding: 10px 32px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
-/* Efecto glow hero */
+/* Efecto glow hero (Corregido para mezclarse mejor) */
 .hero-glow {
   background: radial-gradient(
     circle at center,
-    rgba(173, 116, 195, 0.4) 0%,
+    rgba(173, 116, 195, 0.25) 0%, /* Menos opacidad para que no "queme" */
     transparent 70%
   );
+  filter: blur(60px);
 }
 
-/* Botón principal */
+/* Botón principal (Estilo "Ver Proyectos") */
 .btn-primary {
-  background-color: var(--color-light);
-  color: var(--color-primary-dark);
+  background-color: var(--color-accent);
+  color: white;
   font-weight: 600;
-  padding: 10px 24px;
+  padding: 12px 28px;
   border-radius: 12px;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 15px rgba(173, 116, 195, 0.3); /* Glow suave */
 }
 
 .btn-primary:hover {
-  background-color: var(--color-soft);
-  transform: scale(1.05);
+  background-color: #9C63B0; /* Un poco más oscuro al hover */
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(173, 116, 195, 0.5); /* Más glow al hover */
 }
 
-/* Botón outline */
+/* Botón outline (Estilo "Descargar CV") */
 .btn-outline {
-  border: 1px solid var(--color-light);
-  color: var(--color-light);
-  padding: 10px 24px;
+  background: transparent;
+  border: 1px solid rgba(248, 237, 251, 0.3);
+  color: var(--color-text-light);
+  padding: 12px 28px;
   border-radius: 12px;
+  font-weight: 500;
   transition: all 0.3s ease;
 }
 
 .btn-outline:hover {
-  background-color: rgba(248, 237, 251, 0.1);
+  background-color: rgba(248, 237, 251, 0.08);
+  border-color: var(--color-text-light);
+  transform: translateY(-2px);
+}
+
+/* Utilidad para textos con gradiente (Como en el título) */
+.text-gradient {
+  background: linear-gradient(to right, var(--color-accent), #E0C3FC);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
