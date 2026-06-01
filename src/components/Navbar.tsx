@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Search, Menu, X } from 'lucide-react';
+
 interface NavbarProps {
   onSearch: (value: string) => void;
 }
@@ -10,57 +11,58 @@ export const Navbar = ({ onSearch }: NavbarProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
 
- const handleSearch = (term: string) => {
-  onSearch(term); // 🔥 conecta con App
-  const element = document.getElementById(term.toLowerCase());
-  if (element) {
-    element.scrollIntoView({ behavior: 'smooth' });
-    setIsSearchOpen(false);
-  }
-};
-useEffect(() => {
-  const handleEsc = (e: KeyboardEvent) => {
-    if (e.key === 'Escape') setIsSearchOpen(false);
+  const handleSearch = (term: string) => {
+    onSearch(term); // 🔥 conecta con App
+    const element = document.getElementById(term.toLowerCase());
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setIsSearchOpen(false);
+    }
   };
-  if (isSearchOpen) {
-    document.addEventListener('keydown', handleEsc);
-  }
-  return () => document.removeEventListener('keydown', handleEsc);
-}, [isSearchOpen]);
+
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsSearchOpen(false);
+    };
+    if (isSearchOpen) {
+      document.addEventListener('keydown', handleEsc);
+    }
+    return () => document.removeEventListener('keydown', handleEsc);
+  }, [isSearchOpen]);
+
   return (
     <>
       <motion.nav 
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-6 max-w-7xl mx-auto w-full"
+        // 🔥 Ajustamos los márgenes laterales (px-6 md:px-10) para empujar a los bordes
+        className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-10 py-8 w-full"
       >
-        <a href="#inicio" className="text-xl font-black tracking-tight">
-  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AD74C3] via-[#D8B4E2] to-[#AD74C3]">
-    Arianna
-  </span>
-</a>
+        
+        {/* Espacio vacío para equilibrar el centro */}
+        <div className="w-20 md:w-32"></div>
 
-        {/* Center Links */}
-        <div className="hidden md:flex items-center gap-6 glass-nav">
-          <a href="#inicio" className="text-sm font-medium hover:text-white/70 transition-colors">Inicio</a>
-          <a href="#habilidades" className="text-sm font-medium hover:text-white/70 transition-colors">Habilidades</a>
-          <a href="#proyectos" className="text-sm font-medium hover:text-white/70 transition-colors">Proyectos</a>
-          <a href="#contacto" className="text-sm font-medium hover:text-white/70 transition-colors">Contacto</a>
+        {/* Center Links: 🔥 gap-10 para separar más, px-8 py-3 para hacer la cápsula más grande, text-base para la letra */}
+        <div className="hidden md:flex items-center gap-10 glass-nav px-8 py-3 rounded-full">
+          <a href="#inicio" className="text-base font-medium hover:text-white/70 transition-colors">Inicio</a>
+          <a href="#habilidades" className="text-base font-medium hover:text-white/70 transition-colors">Habilidades</a>
+          <a href="#proyectos" className="text-base font-medium hover:text-white/70 transition-colors">Proyectos</a>
+          <a href="#contacto" className="text-base font-medium hover:text-white/70 transition-colors">Contacto</a>
         </div>
 
-        {/* Right Icons */}
+        {/* Right Icons: 🔥 Íconos y botones ligeramente más grandes (p-3 y size={22}) */}
         <div className="flex items-center gap-4">
           <button 
             onClick={() => setIsSearchOpen(true)}
-            className="p-2 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 transition-colors"
+            className="p-3 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 transition-colors"
           >
-            <Search size={20} />
+            <Search size={22} />
           </button>
           <button 
             onClick={() => setIsMenuOpen(true)}
-            className="p-2 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 transition-colors md:hidden"
+            className="p-3 bg-white/5 rounded-xl border border-white/10 hover:bg-white/10 transition-colors md:hidden"
           >
-            <Menu size={20} />
+            <Menu size={22} />
           </button>
         </div>
       </motion.nav>
@@ -84,16 +86,16 @@ useEffect(() => {
               <div className="relative">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" size={24} />
                 <input
-  autoFocus
-  type="text"
-  value={searchTerm}
-  onChange={(e) => setSearchTerm(e.target.value)}
-  onKeyDown={(e) => {
-    if (e.key === 'Enter') handleSearch(searchTerm);
-  }}
-  placeholder="Buscar proyectos, habilidades..."
-  className="w-full bg-white/5 border-b-2 border-white/20 px-14 py-6 text-2xl focus:outline-none focus:border-accent-purple transition-all"
-/>
+                  autoFocus
+                  type="text"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') handleSearch(searchTerm);
+                  }}
+                  placeholder="Buscar proyectos, habilidades..."
+                  className="w-full bg-white/5 border-b-2 border-white/20 px-14 py-6 text-2xl focus:outline-none focus:border-accent-purple transition-all"
+                />
               </div>
               <p className="text-white/40 text-sm">Presiona ESC para cerrar</p>
             </div>
@@ -119,12 +121,7 @@ useEffect(() => {
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               className="fixed top-0 right-0 bottom-0 z-[100] w-80 bg-[var(--color-bg-main)] border-l border-white/10 p-8 md:hidden"
             >
-              <div className="flex items-center justify-between mb-12">
-              <a href="#inicio" className="text-xl font-black tracking-tight">
-  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#AD74C3] via-[#D8B4E2] to-[#AD74C3]">
-    Arianna
-  </span>
-</a>
+              <div className="flex items-center justify-end mb-12">
                 <button onClick={() => setIsMenuOpen(false)} className="text-white/60 hover:text-white">
                   <X size={24} />
                 </button>
