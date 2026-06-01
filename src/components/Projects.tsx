@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { ExternalLink, Github, Code2, Database, Globe, Briefcase, Layout, Users, Eye, X, Image as ImageIcon } from 'lucide-react';
+// 🔥 Agregamos ChevronLeft y ChevronRight para las flechitas
+import { ExternalLink, Github, Code2, Database, Globe, Briefcase, Layout, Users, Eye, X, Image as ImageIcon, ChevronLeft, ChevronRight } from 'lucide-react';
 
 type Category = 'Todos' | 'Académico' | 'Personal' | 'Trabajo';
 
-// Definimos el tipo de nuestros proyectos para mantener el orden
 interface Project {
   title: string;
   description: string;
@@ -16,6 +16,7 @@ interface Project {
   images?: string[];
 }
 
+// Tus 7 proyectos (los dejé exactos a los que armamos)
 const projects: Project[] = [
   {
     title: "Plan de Negocios SkinUp Gaming",
@@ -47,16 +48,15 @@ const projects: Project[] = [
     github: null,
     images: []
   },
-  // 🔥 TUS 4 PROYECTOS DE TRABAJO ACTUALIZADOS
   {
     title: "Landing Page Corporativa Inmobiliaria",
     description: "Landing page desarrollada para la promoción de propiedades en venta y alquiler. Diseñé y desarrollé la interfaz completa, integrando un buscador de inmuebles, catálogo de propiedades destacadas y canales de contacto optimizados para la captación de clientes potenciales.",
     tech: ["React.js", "JavaScript", "HTML5", "CSS3", "Vercel"],
     icon: <Briefcase className="text-accent-purple" />,
     category: "Trabajo",
-    showDemo: false, // Actívalo en true si tienes el link
+    showDemo: false, 
     github: null,
-    images: [] // Agrega aquí tus rutas (ej. ["/images/inmo1.png"])
+    images: [] 
   },
   {
     title: "Landing Page para Estudio Jurídico",
@@ -82,7 +82,7 @@ const projects: Project[] = [
     title: "Rediseño Web - Consultora Empresarial",
     description: "Rediseño estético y funcional del sitio web de una consultora. Desarrollé la maquetación avanzada con WordPress y Elementor, aplicando lógica personalizada mediante código PHP, HTML y CSS para adaptar plugins y optimizar la experiencia de usuario (UX/UI).",
     tech: ["WordPress", "Elementor", "PHP", "HTML5", "CSS3"],
-    icon: <Globe className="text-accent-purple" />, // Usamos Globe para representar web/WordPress
+    icon: <Globe className="text-accent-purple" />, 
     category: "Trabajo",
     showDemo: false,
     github: null,
@@ -95,7 +95,12 @@ const FILTERS: Category[] = ['Todos', 'Académico', 'Personal', 'Trabajo'];
 export const Projects = ({ searchQuery = '' }: { searchQuery?: string }) => {
   const [activeFilter, setActiveFilter] = useState<Category>('Todos');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  
+  // 🔥 Nuevos estados para la paginación (Flechas)
+  const [currentPage, setCurrentPage] = useState(0);
+  const ITEMS_PER_PAGE = 6; // Máximo 6 proyectos (2 filas de 3)
 
+  // Bloquear scroll al abrir modal
   useEffect(() => {
     if (selectedProject) {
       document.body.style.overflow = 'hidden';
@@ -111,6 +116,12 @@ export const Projects = ({ searchQuery = '' }: { searchQuery?: string }) => {
     return () => window.removeEventListener('keydown', handleEsc);
   }, [selectedProject]);
 
+  // 🔥 Reiniciar la página a 0 si cambias de filtro o buscas algo
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [activeFilter, searchQuery]);
+
+  // Filtrado de proyectos
   const filteredProjects = projects.filter(project => {
     const matchesSearch =
       project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -122,6 +133,13 @@ export const Projects = ({ searchQuery = '' }: { searchQuery?: string }) => {
 
     return matchesSearch && matchesFilter;
   });
+
+  // 🔥 Lógica matemática para cortar la lista en bloques de 6
+  const totalPages = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE);
+  const paginatedProjects = filteredProjects.slice(
+    currentPage * ITEMS_PER_PAGE,
+    (currentPage + 1) * ITEMS_PER_PAGE
+  );
 
   return (
     <>
@@ -153,10 +171,11 @@ export const Projects = ({ searchQuery = '' }: { searchQuery?: string }) => {
             ))}
           </div>
 
-          {/* Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+          {/* Grid de Proyectos */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 min-h-[400px]">
             <AnimatePresence mode="popLayout">
-              {filteredProjects.map((project) => (
+              {/* 🔥 Mapeamos 'paginatedProjects' en vez de 'filteredProjects' */}
+              {paginatedProjects.map((project) => (
                 <motion.div
                   key={project.title}
                   layout
@@ -167,7 +186,6 @@ export const Projects = ({ searchQuery = '' }: { searchQuery?: string }) => {
                   className="group relative p-1 rounded-[2.5rem] bg-gradient-to-br from-white/10 to-transparent hover:from-[#AD74C3]/40 transition-all"
                 >
                   <div className="h-full p-8 rounded-[2.4rem] bg-[var(--color-bg-main)]/90 backdrop-blur-xl flex flex-col">
-
                     {/* Categoría badge */}
                     <div className="flex items-center justify-between mb-6">
                       <div className="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -229,6 +247,41 @@ export const Projects = ({ searchQuery = '' }: { searchQuery?: string }) => {
             )}
           </div>
 
+          {/* 🔥 Controles de Paginación (Flechas) */}
+          {totalPages > 1 && (
+            <div className="flex justify-center items-center gap-6 mt-12">
+              <button
+                onClick={() => setCurrentPage(p => Math.max(0, p - 1))}
+                disabled={currentPage === 0}
+                className="p-3 rounded-full bg-white/5 border border-white/10 hover:bg-accent-purple/20 hover:border-accent-purple/50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                aria-label="Página anterior"
+              >
+                <ChevronLeft size={24} className={currentPage === 0 ? "text-white/50" : "text-accent-purple"} />
+              </button>
+              
+              {/* Indicador de página (Ej: 1 de 2) */}
+              <div className="flex gap-2">
+                {Array.from({ length: totalPages }).map((_, idx) => (
+                  <div 
+                    key={idx} 
+                    className={`h-2 rounded-full transition-all duration-300 ${
+                      currentPage === idx ? "w-8 bg-accent-purple" : "w-2 bg-white/20"
+                    }`}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={() => setCurrentPage(p => Math.min(totalPages - 1, p + 1))}
+                disabled={currentPage === totalPages - 1}
+                className="p-3 rounded-full bg-white/5 border border-white/10 hover:bg-accent-purple/20 hover:border-accent-purple/50 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
+                aria-label="Siguiente página"
+              >
+                <ChevronRight size={24} className={currentPage === totalPages - 1 ? "text-white/50" : "text-accent-purple"} />
+              </button>
+            </div>
+          )}
+
         </div>
       </section>
 
@@ -250,7 +303,6 @@ export const Projects = ({ searchQuery = '' }: { searchQuery?: string }) => {
               onClick={(e) => e.stopPropagation()}
               className="bg-[var(--color-bg-main)] border border-white/10 w-full max-w-4xl max-h-[90vh] rounded-[2.5rem] overflow-hidden flex flex-col shadow-2xl shadow-accent-purple/20"
             >
-              {/* Encabezado del Modal */}
               <div className="flex items-center justify-between p-6 md:p-8 border-b border-white/5">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-white/5 rounded-xl flex items-center justify-center">
@@ -266,7 +318,6 @@ export const Projects = ({ searchQuery = '' }: { searchQuery?: string }) => {
                 </button>
               </div>
 
-              {/* Cuerpo del Modal (Scrollable) */}
               <div className="overflow-y-auto p-6 md:p-8 space-y-8 custom-scrollbar">
                 <p className="text-lg text-white/70 leading-relaxed">
                   {selectedProject.description}
