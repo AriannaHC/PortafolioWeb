@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Facebook, Instagram, Linkedin } from 'lucide-react';
 import foto from "../assets/perfil1.png";
-import cv from "../assets/CV.pdf";
+import cv from "../assets/CV1.pdf";
 
 export const Hero = () => {
   return (
